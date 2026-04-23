@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gameguessr</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header-text">
+        <h1 class="game-title">Gameguessr</h1>
+    </div>
+
+    <div class="game-container">
+        <div class="scene-container">
+            <img id="scene-image" src="images/loc1.jpg" alt="где это?">
+        </div>
+
+        <div class="ui-panel">
+            <div class="stats">
+                <span>раунд: <span id="round">1</span>/5</span>
+                <span>очки: <span id="score">0</span></span>
+            </div>
+
+            <div class="map-container" id="map-container">
+                <img src="images/map.jpg" alt="карта pubg" id="minimap">
+                <div id="marker" class="marker hidden"></div>
+            </div>
+
+            <button id="guess-btn" disabled>подтвердить координаты</button>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>
