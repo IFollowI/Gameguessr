@@ -1,19 +1,22 @@
-// укажи здесь реальный размер твоей картинки карты (или масштаб координат)
-// для эрангеля обычно используется сетка 8192x8192
+
 const maxMapSize = 8192;
 
 const locationsData = [
-    { img: 'images/loc1.jpg', x: 3610, y: 4100 },
-    { img: 'images/loc2.jpg', x: 3340, y: 1665 },
-    { img: 'images/loc3.jpg', x: 7253, y: 3322 },
-    { img: 'images/loc4.jpg', x: 3891, y: 1114 },
-    { img: 'images/loc5.jpg', x: 5543, y: 2414 }
+    { img: 'images/1702x3430.png', x: 1702, y: 3430 },
+    { img: 'images/1911x3527.png', x: 1911, y: 3527 },
+    { img: 'images/2100x3695.png', x: 2100, y: 3695 },
+    { img: 'images/2765x3853.png', x: 2765, y: 3853 },
+    { img: 'images/3430x4044.png', x: 3430, y: 4044 },
+    { img: 'images/3447x3843.png', x: 3447, y: 3843 },
+    { img: 'images/5693x4858.png', x: 5693, y: 4858 },
+    { img: 'images/3960x3860.png', x: 3960, y: 3860 },
+    { img: 'images/5515x4888.png', x: 5515, y: 4888 }
 ];
 
 // состояние игры
 let currentRound = 0;
 let totalScore = 0;
-let currentGuess = null; // {x, y} в процентах
+let currentGuess = null;
 
 // dom элементы
 const sceneImage = document.getElementById('scene-image');
@@ -84,7 +87,7 @@ function calculateScore(guessX, guessY, actualX, actualY) {
     const dy = guessY - actualPercentY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // чем меньше дистанция, тем больше очков
+
     let score = 5000 - (distance * 100);
 
     if (score < 0) score = 0;
@@ -107,5 +110,5 @@ guessBtn.addEventListener('click', () => {
     loadRound();
 });
 
-// запуск
+
 initGame();

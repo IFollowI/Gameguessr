@@ -1,9 +1,11 @@
 :root {
-    --bg-color: #1a1a1a;
+    --bg-color: #2C3E50;
     --text-color: #f0f0f0;
-    --accent-color: #f2a900;
+    --accent-color: rgb(22, 160, 133);
+    --accent1-color: #1ABC9C;
     /* цвет, похожий на желтый из pubg */
-    --panel-bg: #2a2a2a;
+    --panel-bg: #34495E;
+    --grey: #95A5A6;
 }
 
 * {
@@ -12,14 +14,26 @@
     padding: 0;
 }
 
+.game-page {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /* критически важно: ставит заголовок над игрой */
+    align-items: center;
+    /* центрирует всё по горизонтали */
+    justify-content: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+
 body {
     font-family: 'segoe ui', tahoma, geneva, verdana, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+
 }
 
 .game-container {
@@ -67,7 +81,7 @@ body {
 .map-container {
     position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width: 320px;
     cursor: crosshair;
     border: 2px solid var(--accent-color);
     border-radius: 4px;
@@ -81,11 +95,11 @@ body {
 /* маркер, который появляется при клике на карту */
 .marker {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    background-color: red;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(0, 255, 255);
     border: 2px solid white;
-    border-radius: 50%;
+    border-radius: 40%;
     transform: translate(-50%, -50%);
     /* центрируем маркер по координатам клика */
     pointer-events: none;
@@ -95,11 +109,11 @@ body {
     display: none;
 }
 
-button {
+#guess-btn {
     padding: 10px 30px;
     font-size: 1.1rem;
     font-weight: bold;
-    background-color: var(--accent-color);
+    background-color: var(--accent1-color);
     color: #000;
     border: none;
     border-radius: 4px;
@@ -107,13 +121,13 @@ button {
     transition: opacity 0.2s;
 }
 
-button:disabled {
+#guess-btn:disabled {
     background-color: #555;
     cursor: not-allowed;
     opacity: 0.7;
 }
 
-button:not(:disabled):hover {
+#guess-btn:not(:disabled):hover {
     opacity: 0.9;
 }
 
@@ -135,7 +149,7 @@ button:not(:disabled):hover {
     text-transform: uppercase;
     /* делаем все буквы заглавными для стиля */
     color: var(--accent-color);
-    /* используем наш желтый из переменной */
+
 
     /* легкий темный фон под заголовком */
     letter-spacing: 2px;
@@ -143,15 +157,34 @@ button:not(:disabled):hover {
 
 }
 
-body {
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    /* критически важно: ставит заголовок над игрой */
-    align-items: center;
-    /* центрирует всё по горизонтали */
-    justify-content: center;
-    min-height: 100vh;
-    font-family: sans-serif;
+.change-page-home {
+    margin-top: 10px;
+    position: absolute;
+    top: none;
+    right: 15px;
+}
+
+#ex-button a {
+    /* 1. убираем подчеркивание */
+    text-decoration: none;
+    /* 2. цвет текста (например, белый или черный) */
+    color: #000000;
+    /* 3. цвет фона кнопки */
+    background-color: var(--accent-color);
+    /* 4. важно для тега <a>, чтобы отступы работали корректно */
+    display: inline-block;
+    align-items: end;
+    /* остальные твои стили */
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+/* эффект при наведении, чтобы кнопка "ожила" */
+#ex-button:hover {
+    opacity: 0.8;
+    color: #272323;
+    /* чтобы цвет текста не менялся на стандартный синий */
 }

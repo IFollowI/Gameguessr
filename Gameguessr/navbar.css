@@ -1,0 +1,32 @@
+.navbar {
+    display: flex;
+    background-color: var(--accent-color);
+}
+
+.nav-list {
+    display: flex;
+}
+
+.nav-list a {
+    display: block;
+    padding: 1em;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+
+
+.nav-list a:hover {
+    background-color: var(--accent1-color);
+}
+
+
+
+.logo-img {
+    height: 54px;
+    /* Ограничиваем высоту логотипа */
+    width: auto;
+    /* Ширина подстроится автоматически */
+    display: block;
+    flex-shrink: 0;
+}

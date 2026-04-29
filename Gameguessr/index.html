@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -8,28 +8,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div class="header-text">
-        <h1 class="game-title">Gameguessr</h1>
-    </div>
+<body class="game-page">
 
-    <div class="game-container">
-        <div class="scene-container">
-            <img id="scene-image" src="images/loc1.jpg" alt="где это?">
+    <div>
+        <button id="ex-button" class="change-page-home">
+            <a href="http://127.0.0.1:5500/Gameguessr/index1.html">back to lobby</a>
+        </button>
+    </div>
+    <div class="game-page">
+
+        <div class="header-text">
+            <h1 class="game-title">Gameguessr</h1>
         </div>
 
-        <div class="ui-panel">
-            <div class="stats">
-                <span>раунд: <span id="round">1</span>/5</span>
-                <span>очки: <span id="score">0</span></span>
+        <div class="game-container">
+            <div class="scene-container">
+                <img id="scene-image" src="images/loc1.jpg" alt="where is it?">
             </div>
 
-            <div class="map-container" id="map-container">
-                <img src="images/map.jpg" alt="карта pubg" id="minimap">
-                <div id="marker" class="marker hidden"></div>
-            </div>
+            <div class="ui-panel">
+                <div class="stats">
+                    <span>round: <span id="round">1</span>/9</span>
+                    <span>score: <span id="score">0</span></span>
+                </div>
 
-            <button id="guess-btn" disabled>подтвердить координаты</button>
+                <div class="map-container" id="map-container">
+                    <img src="images/map.jpg" alt="карта pubg" id="minimap">
+                    <div id="marker" class="marker hidden"></div>
+                </div>
+
+                <button id="guess-btn" disabled>Check coordinates</button>
+            </div>
         </div>
     </div>
 
