@@ -1,0 +1,68 @@
+.menu-bg img {
+    width: 100%;
+    height: 96vh;
+    position: absolute;
+    object-fit: cover;
+    z-index: 1;
+    top: 10;
+    left: 0;
+}
+
+.effect {
+    width: 100%;
+    height: 96vh;
+    position: absolute;
+    z-index: 2;
+    /* 0.6 — это 60% непрозрачности. Чем меньше число, тем лучше видно фото */
+    background-color: rgba(33, 33, 33, 0.6);
+    top: 0;
+    /* Обязательно добавь единицы измерения или 0 */
+    left: 0;
+    pointer-events: none;
+    /* Чтобы клики проходили сквозь слой к кнопкам, если надо */
+}
+
+.menu-bg {
+    width: 100%;
+    height: 96vh;
+    position: relative;
+    display: flex;
+
+
+}
+
+.img-text {
+    top: 100px;
+    position: relative;
+    z-index: 2;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    height: 85px;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    /* Заставляет заголовок занять всё свободное место */
+    margin: 0;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.button-test {
+    display: flex;
+    align-items: center;
+    /* Центр по вертикали */
+    justify-content: center;
+    /* Центр по горизонтали */
+    position: absolute;
+    /* Кладем слой поверх фона */
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Обязательно: растягиваем на всю ширину */
+    height: 100vh;
+    /* Растягиваем на всю высоту */
+    z-index: 2;
+    /* Выше фона (z-index: 1) и эффекта (z-index: 2) */
+    /* Чтобы сам контейнер не мешал кликам (опционально) */
+}
