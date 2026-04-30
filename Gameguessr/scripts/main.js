@@ -1,4 +1,3 @@
-
 const maxMapSize = 8192;
 
 const locationsData = [
@@ -18,14 +17,159 @@ let currentRound = 0;
 let totalScore = 0;
 let currentGuess = null;
 
+// переменные для масштабирования карты
+let mapScale = 1;
+const minScale = 0.5;
+const maxScale = 3;
+const scaleStep = 0.1;
+
 // dom элементы
 const sceneImage = document.getElementById('scene-image');
 const minimap = document.getElementById('minimap');
 const mapContainer = document.getElementById('map-container');
 const marker = document.getElementById('marker');
+const targetMarker = document.getElementById('target-marker');
 const guessBtn = document.getElementById('guess-btn');
 const scoreDisplay = document.getElementById('score');
 const roundDisplay = document.getElementById('round');
+
+// создаем SVG элемент для линии и текста расстояния
+const svgOverlay = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+svgOverlay.classList.add('connection-line');
+svgOverlay.innerHTML = `
+    <line id="connection-line" x1="0" y1="0" x2="0" y2="0" 
+          stroke="#ff0000" stroke-width="2" stroke-dasharray="5,3" 
+          opacity="0.9" style="display: none;" />
+    <text id="distance-text" class="distance-label" x="0" y="0" 
+          style="display: none;">0m</text>
+`;
+mapContainer.appendChild(svgOverlay);
+
+const connectionLine = document.getElementById('connection-line');
+const distanceText = document.getElementById('distance-text');
+
+// функция для масштабирования карты колесиком мыши с учетом позиции курсора
+mapContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    
+    // получаем позицию курсора относительно карты
+    const rect = mapContainer.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    // вычисляем процентное положение курсора (0-100)
+    const originX = (mouseX / rect.width) * 100;
+    const originY = (mouseY / rect.height) * 100;
+    
+    // сохраняем старый масштаб
+    const oldScale = mapScale;
+    
+    // определяем направление прокрутки
+    if (e.deltaY < 0) {
+        // прокрутка вверх - увеличиваем
+        mapScale = Math.min(maxScale, mapScale + scaleStep);
+    } else {
+        // прокрутка вниз - уменьшаем
+        mapScale = Math.max(minScale, mapScale - scaleStep);
+    }
+    
+    // применяем трансформацию с учетом точки origin
+    mapContainer.style.transformOrigin = `${originX}% ${originY}%`;
+    mapContainer.style.transform = `scale(${mapScale})`;
+    mapContainer.style.transition = 'transform 0.1s ease';
+    
+    // динамически меняем max-width в зависимости от масштаба
+    const baseWidth = 320; // базовая ширина
+    mapContainer.style.maxWidth = `${baseWidth * mapScale}px`;
+});
+
+// сбрасываем масштаб при уходе курсора с карты
+mapContainer.addEventListener('mouseleave', () => {
+    mapScale = 1;
+    mapContainer.style.transform = 'scale(1)';
+    mapContainer.style.transformOrigin = 'center center';
+    mapContainer.style.maxWidth = '320px';
+    mapContainer.style.transition = 'transform 0.3s ease, max-width 0.3s ease';
+});
+
+// отслеживаем движение мыши для динамического обновления точки трансформации
+mapContainer.addEventListener('mousemove', (e) => {
+    if (mapScale !== 1) {
+        const rect = mapContainer.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        
+        const originX = (mouseX / rect.width) * 100;
+        const originY = (mouseY / rect.height) * 100;
+        
+        mapContainer.style.transformOrigin = `${originX}% ${originY}%`;
+    }
+});
+
+// функция для расчета расстояния в метрах на карте
+function calculateDistanceInMeters(guessX, guessY, targetX, targetY) {
+    // конвертируем проценты обратно в координаты карты
+    const guessMapX = (guessX / 100) * maxMapSize;
+    const guessMapY = (guessY / 100) * maxMapSize;
+    const targetMapX = (targetX / 100) * maxMapSize;
+    const targetMapY = (targetY / 100) * maxMapSize;
+    
+    // рассчитываем расстояние в единицах карты
+    const dx = guessMapX - targetMapX;
+    const dy = guessMapY - targetMapY;
+    const distanceInMapUnits = Math.sqrt(dx * dx + dy * dy);
+    
+    // конвертируем в метры (примерный масштаб: 1 единица карты = 0.5 метра)
+    // вы можете настроить этот коэффициент под свою карту
+    const metersPerUnit = 0.5;
+    const distanceInMeters = distanceInMapUnits * metersPerUnit;
+    
+    return Math.round(distanceInMeters);
+}
+
+// функция для отображения линии и расстояния между догадкой и правильным ответом
+function showConnectionLine(guessX, guessY, targetX, targetY) {
+    // отображаем линию
+    connectionLine.setAttribute('x1', `${guessX}%`);
+    connectionLine.setAttribute('y1', `${guessY}%`);
+    connectionLine.setAttribute('x2', `${targetX}%`);
+    connectionLine.setAttribute('y2', `${targetY}%`);
+    connectionLine.style.display = 'block';
+    
+    // рассчитываем и отображаем расстояние
+    const distance = calculateDistanceInMeters(guessX, guessY, targetX, targetY);
+    
+    // размещаем текст посередине линии
+    const midX = (guessX + targetX) / 2;
+    const midY = (guessY + targetY) / 2;
+    
+    distanceText.setAttribute('x', `${midX}%`);
+    distanceText.setAttribute('y', `${midY}%`);
+    distanceText.textContent = `${distance}m`;
+    distanceText.style.display = 'block';
+}
+
+// функция для скрытия линии и текста
+function hideConnectionLine() {
+    connectionLine.style.display = 'none';
+    distanceText.style.display = 'none';
+}
+
+// функция для отображения целевой точки (правильного ответа)
+function showTargetLocation() {
+    const location = locationsData[currentRound];
+    const actualPercentX = (location.x / maxMapSize) * 100;
+    const actualPercentY = (location.y / maxMapSize) * 100;
+    
+    targetMarker.style.left = `${actualPercentX}%`;
+    targetMarker.style.top = `${actualPercentY}%`;
+    targetMarker.classList.remove('hidden');
+}
+
+// функция для скрытия целевой точки
+function hideTargetLocation() {
+    targetMarker.classList.add('hidden');
+}
 
 // инициализация игры
 function initGame() {
@@ -46,7 +190,11 @@ function loadRound() {
     const location = locationsData[currentRound];
     sceneImage.src = location.img;
 
-    // сброс ui
+    // скрываем целевую точку, линию и текст
+    hideTargetLocation();
+    hideConnectionLine();
+    
+    // сброс ui (маркер догадки)
     marker.classList.add('hidden');
     currentGuess = null;
     guessBtn.disabled = true;
@@ -57,36 +205,29 @@ function loadRound() {
 mapContainer.addEventListener('click', (e) => {
     const rect = mapContainer.getBoundingClientRect();
 
-    // вычисляем координаты клика относительно контейнера карты
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
 
-    // переводим в проценты
     const percentX = (clickX / rect.width) * 100;
     const percentY = (clickY / rect.height) * 100;
 
     currentGuess = { x: percentX, y: percentY };
 
-    // отображаем маркер
     marker.style.left = `${percentX}%`;
     marker.style.top = `${percentY}%`;
     marker.classList.remove('hidden');
 
-    // активируем кнопку
     guessBtn.disabled = false;
 });
 
 // расчет очков
 function calculateScore(guessX, guessY, actualX, actualY) {
-    // сначала переводим абсолютные координаты локации в проценты
     const actualPercentX = (actualX / maxMapSize) * 100;
     const actualPercentY = (actualY / maxMapSize) * 100;
 
-    // теперь применяем теорему пифагора к двум процентным значениям
     const dx = guessX - actualPercentX;
     const dy = guessY - actualPercentY;
     const distance = Math.sqrt(dx * dx + dy * dy);
-
 
     let score = 5000 - (distance * 100);
 
@@ -104,11 +245,23 @@ guessBtn.addEventListener('click', () => {
     totalScore += roundScore;
     scoreDisplay.textContent = totalScore;
 
+    const actualPercentX = (actualLocation.x / maxMapSize) * 100;
+    const actualPercentY = (actualLocation.y / maxMapSize) * 100;
+
+    // ПОКАЗЫВАЕМ ПРАВИЛЬНЫЙ ОТВЕТ (красная точка)
+    showTargetLocation();
+    
+    // ПОКАЗЫВАЕМ ЛИНИЮ И РАССТОЯНИЕ
+    showConnectionLine(currentGuess.x, currentGuess.y, actualPercentX, actualPercentY);
+
+    const distance = calculateDistanceInMeters(currentGuess.x, currentGuess.y, actualPercentX, actualPercentY);
     alert(`ты заработал ${roundScore} очков в этом раунде!`);
 
-    currentRound++;
-    loadRound();
+    // задержка перед следующим раундом
+    setTimeout(() => {
+        currentRound++;
+        loadRound();
+    }, 3000); // 3 секунды показываем результат
 });
-
 
 initGame();
