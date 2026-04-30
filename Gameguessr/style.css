@@ -32,8 +32,6 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     height: 100vh;
-
-
 }
 
 .game-container {
@@ -85,11 +83,31 @@ body {
     cursor: crosshair;
     border: 2px solid var(--accent-color);
     border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease, max-width 0.3s ease;
+    /* Плавная анимация для сброса масштаба */
+    z-index: 1;
+    /* Базовый z-index */
+}
+
+/* Убираем старый hover-эффект, так как теперь используем колесико мыши */
+.map-container:hover {
+    z-index: 10;
+    /* Карта поверх других элементов при наведении */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    /* Тень для эффекта "всплытия" */
+}
+
+/* Анимация при активном масштабировании */
+.map-container.scaling {
+    transition: transform 0.1s ease, max-width 0.1s ease;
 }
 
 .map-container img {
     width: 100%;
     display: block;
+    transition: transform 0.3s ease;
+    /* Плавная анимация для изображения */
 }
 
 /* маркер, который появляется при клике на карту */
@@ -103,6 +121,47 @@ body {
     transform: translate(-50%, -50%);
     /* центрируем маркер по координатам клика */
     pointer-events: none;
+}
+
+/* целевой маркер (правильный ответ) */
+.marker.target {
+    background-color: red;
+    border: 2px solid white;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.connection-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* текст с расстоянием */
+.distance-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.distance-label {
+    font-size: 12px;
+    font-weight: bold;
+    fill: #00ff00;
+    stroke: #000000;
+    stroke-width: 0.5px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    paint-order: stroke fill;
 }
 
 .hidden {
@@ -134,7 +193,6 @@ body {
 .scene-container {
     flex: auto;
     width: auto;
-
 }
 
 .game-title {
@@ -149,12 +207,9 @@ body {
     text-transform: uppercase;
     /* делаем все буквы заглавными для стиля */
     color: var(--accent-color);
-
-
     /* легкий темный фон под заголовком */
     letter-spacing: 2px;
     /* небольшой межбуквенный интервал для красоты */
-
 }
 
 .change-page-home {
@@ -188,3 +243,4 @@ body {
     color: #272323;
     /* чтобы цвет текста не менялся на стандартный синий */
 }
+
