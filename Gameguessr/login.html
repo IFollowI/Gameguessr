@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gameguessr</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+    <div class="button-test">
+        <button id="ex-button" class="change-page-game"><a href="http://127.0.0.1:5500/Gameguessr/index1.html">
+                Back to menu</a></button>
+    </div>
+    <div class="signup-card">
+        <div class="card-inner">
+            <div class="signup-header">
+                <h1>Log in</h1>
+
+            </div>
+
+            <!-- FORM with all required fields -->
+
+            <!-- Your Email -->
+            <form id="registerForm" action="#" method="post">
+                <!-- Your Name -->
+
+                <!-- Your Email -->
+                <div class="form-group" id="emailGroup">
+                    <label for="email">Your Email</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder="Hello@example.com"
+                            autocomplete="email">
+                    </div>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+
+                <!-- Password with toggle -->
+                <div class="form-group" id="passwordGroup">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter the password"
+                            autocomplete="new-password">
+                        <button type="button" class="toggle-password" data-target="password"
+                            aria-label="Show/hide password">
+                            <i class="far fa-eye-slash"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+
+                <!-- Repeat your password -->
+
+                <!-- Checkbox + Terms of service (exact copy) -->
+                <div class="checkbox-group" id="termsGroup">
+                    <input type="checkbox" id="termsCheckbox">
+                    <label for="termsCheckbox">
+                        I agree all statements in <a href="#" id="termsLink" class="terms-link">Terms of service</a>
+                    </label>
+                </div>
+                <div class="error-message checkbox-error" id="termsError"></div>
+
+
+                <!-- Checkbox + Terms of service (exact copy) -->
+
+                <!-- Register button -->
+                <button type="submit" class="register-btn" id="registerBtn">Register</button>
+
+                <div class="divider">
+                    <hr />
+                    <span>✦</span>
+                    <hr />
+                </div>
+                <script src="scripts/login.js"></script>
+</body>
+
+</html>

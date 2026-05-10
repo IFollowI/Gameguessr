@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/Gameguessr/signup.css">
+</head>
+
+<body>
+    <div class="button-test">
+        <button id="ex-button" class="change-page-game"><a href="http://127.0.0.1:5500/Gameguessr/index1.html">
+                Back to menu</a></button>
+    </div>
+    <div class="signup-card">
+        <div class="card-inner">
+            <div class="signup-header">
+                <h1>Sign up</h1>
+
+            </div>
+
+            <!-- FORM with all required fields -->
+            <form id="registerForm" action="#" method="post">
+                <!-- Your Name -->
+                <div class="form-group" id="nameGroup">
+                    <label for="fullName">Your Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="fullName" name="fullName" placeholder="Nikita Gubkin"
+                            autocomplete="name">
+                    </div>
+                    <div class="error-message" id="nameError"></div>
+                </div>
+
+                <!-- Your Email -->
+                <div class="form-group" id="emailGroup">
+                    <label for="email">Your Email</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder="Hello@example.com"
+                            autocomplete="email">
+                    </div>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+
+                <!-- Password with toggle -->
+                <div class="form-group" id="passwordGroup">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Create a password"
+                            autocomplete="new-password">
+                        <button type="button" class="toggle-password" data-target="password"
+                            aria-label="Show/hide password">
+                            <i class="far fa-eye-slash"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+
+                <!-- Repeat your password -->
+                <div class="form-group" id="repeatGroup">
+                    <label for="repeatPassword">Repeat your password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="repeatPassword" name="repeatPassword"
+                            placeholder="Confirm your password" autocomplete="off">
+                        <button type="button" class="toggle-password" data-target="repeatPassword"
+                            aria-label="Show/hide password">
+                            <i class="far fa-eye-slash"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="repeatError"></div>
+                </div>
+
+                <!-- Checkbox + Terms of service (exact copy) -->
+                <div class="checkbox-group" id="termsGroup">
+                    <input type="checkbox" id="termsCheckbox">
+                    <label for="termsCheckbox">
+                        I agree all statements in <a href="#" id="termsLink" class="terms-link">Terms of service</a>
+                    </label>
+                </div>
+                <div class="error-message checkbox-error" id="termsError"></div>
+
+                <!-- Register button -->
+                <button type="submit" class="register-btn" id="registerBtn">Register</button>
+
+                <div class="divider">
+                    <hr />
+                    <span>✦</span>
+                    <hr />
+                </div>
+
+                <!-- I am already member link (exactly as described) -->
+                <div class="member-link">
+                    <a href="/Gameguessr/login.html" id="existingMemberLink">
+                        <i class="fas fa-arrow-right-to-bracket"></i> I am already member
+                    </a>
+                </div>
+
+                <!-- dynamic success message container (toast style) -->
+                <div id="formFeedback"></div>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="scripts/singup.js"></script>
+</body>
+
+</html>
