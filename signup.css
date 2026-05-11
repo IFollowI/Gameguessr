@@ -1,0 +1,322 @@
+:root {
+    --bg-color: #2C3E50;
+    --text-color: #f0f0f0;
+    --accent-color: rgb(22, 160, 133);
+    --accent1-color: #1ABC9C;
+    /* цвет, похожий на желтый из pubg */
+    --panel-bg: #34495E;
+    --grey: #95A5A6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+/* main card container */
+.signup-card {
+    max-width: 500px;
+    width: 100%;
+    background: var(--accent-color);
+    border-radius: 2.5rem;
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.signup-card:hover {
+    box-shadow: 0 30px 55px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* inner content */
+.card-inner {
+    padding: 2.2rem 2rem 2.2rem 2rem;
+}
+
+/* heading */
+.signup-header {
+    background: linear-gradient(135deg, #1e2b3c, #0f2a38);
+    color: transparent;
+    background-color: var(--accent-color);
+    background-clip: text;
+    margin-bottom: 1.8rem;
+    text-align: center;
+}
+
+
+
+/* form group */
+.form-group {
+    margin-bottom: 1.4rem;
+    position: relative;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    color: #1e2f3f;
+    letter-spacing: -0.2px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    font-family: 'Inter', monospace;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 1rem;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    outline: none;
+    color: #0f1a24;
+    font-weight: 500;
+}
+
+.input-wrapper input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.input-wrapper input.error-border {
+    border-color: #f95e16;
+    background-color: #fffaf5;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    cursor: pointer;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #3b82f6;
+}
+
+.error-message {
+    font-size: 0.7rem;
+    color: #fc5959;
+    ;
+    font-weight: 500;
+    margin-top: 0.4rem;
+    margin-left: 0.5rem;
+    letter-spacing: -0.2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.error-message i {
+    font-size: 0.7rem;
+}
+
+/* checkbox row */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 1.6rem 0 1.6rem 0;
+    flex-wrap: wrap;
+}
+
+.checkbox-group input {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: #5190f5;
+    cursor: pointer;
+    margin: 0;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #2c3e4e;
+    cursor: pointer;
+    user-select: none;
+}
+
+.terms-link {
+    color: #00458e;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+    border-bottom: 1px dotted #3b82f6;
+}
+
+.terms-link:hover {
+    color: #1e40af;
+    border-bottom-color: #1e40af;
+}
+
+.checkbox-error {
+    width: 100%;
+    margin-top: -0.6rem;
+    margin-bottom: 0.5rem;
+}
+
+/* register button */
+.register-btn {
+    width: 100%;
+    background: linear-gradient(105deg, #0f2a38, #1c3e4f);
+    border: none;
+    padding: 0.9rem 1rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 0.5rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.2px;
+    box-shadow: 0 6px 14px rgba(15, 42, 56, 0.2);
+}
+
+.register-btn:hover {
+    background: linear-gradient(105deg, #143e52, #0f2a38);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px -10px rgba(15, 42, 56, 0.35);
+}
+
+.register-btn:active {
+    transform: translateY(1px);
+}
+
+/* divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.8rem 0 1rem 0;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: #e2edf2;
+}
+
+.divider span {
+    padding: 0 12px;
+    font-size: 0.7rem;
+    color: #7b8ba3;
+    font-weight: 500;
+}
+
+/* member link */
+.member-link {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.member-link a {
+    color: #1e4b62;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.member-link a i {
+    font-size: 0.8rem;
+}
+
+.member-link a:hover {
+    color: #0f2a38;
+    text-decoration: underline;
+}
+
+/* success / toast inline */
+.form-success {
+    margin-top: 1rem;
+    background: #e6f7ed;
+    border-left: 4px solid #10b981;
+    padding: 0.7rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    color: #0a3b2f;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeSlide 0.25s ease;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#ex-button a {
+    /* 1. убираем подчеркивание */
+    text-decoration: none;
+    /* 2. цвет текста (например, белый или черный) */
+    background: linear-gradient(135deg, #1e2b3c, #0f2a38);
+    color: transparent;
+    /* 3. цвет фона кнопки */
+    background-color: var(--accent-color);
+    background-clip: text;
+    display: inline-block;
+    align-items: end;
+    /* остальные твои стили */
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+/* эффект при наведении, чтобы кнопка "ожила" */
+#ex-button:hover {
+    opacity: 0.8;
+    color: #272323;
+    /* чтобы цвет текста не менялся на стандартный синий */
+}
+
+.change-page-game {
+    top: 10px;
+    display: flex;
+    position: absolute;
+    border-radius: 2.5rem;
+    background-color: var(--accent-color);
+    border: 2px solid var(--accent1-color);
+    right: 15px;
+}

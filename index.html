@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="game-page">
+
+    <div>
+        <button id="ex-button" class="change-page-home">
+            <a href="http://127.0.0.1:5500/Gameguessr/index1.html">Back to menu</a>
+        </button>
+    </div>
+    <div class="game-page">
+
+        <div class="header-text">
+            <h1 class="game-title">Gameguessr</h1>
+        </div>
+
+        <div class="game-container">
+            <div class="scene-container">
+                <img id="scene-image" src="images/loc1.jpg" alt="where is it?">
+            </div>
+
+            <div class="ui-panel">
+                <div class="stats">
+                    <span>round: <span id="round">1</span>/9</span>
+                    <span>score: <span id="score">0</span></span>
+                </div>
+
+                <div class="map-container" id="map-container">
+                    <img src="images/map.jpg" alt="карта pubg" id="minimap">
+                    <div id="marker" class="marker hidden"></div>
+                    <div id="target-marker" class="marker target hidden"></div>
+                </div>
+
+                <button id="guess-btn" disabled>Check coordinates</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно с большой картой -->
+    <div id="map-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-map-wrapper">
+                <div class="modal-map-container" id="modal-map-container">
+                    <img src="images/map.jpg" alt="большая карта pubg" id="modal-map">
+                    <div id="modal-marker" class="marker large-marker hidden"></div>
+                    <div id="modal-coordinates" class="coordinates-display">X: 0, Y: 0</div>
+                </div>
+            </div>
+            <button id="confirm-location" class="confirm-btn" disabled>Confirm location</button>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>
