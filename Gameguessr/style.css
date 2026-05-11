@@ -3,7 +3,6 @@
     --text-color: #f0f0f0;
     --accent-color: rgb(22, 160, 133);
     --accent1-color: #1ABC9C;
-    /* цвет, похожий на желтый из pubg */
     --panel-bg: #34495E;
     --grey: #95A5A6;
 }
@@ -19,12 +18,9 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    /* критически важно: ставит заголовок над игрой */
     align-items: center;
-    /* центрирует всё по горизонтали */
     justify-content: center;
     min-height: 100vh;
-
 }
 
 body {
@@ -80,25 +76,19 @@ body {
     position: relative;
     width: 100%;
     max-width: 320px;
-    cursor: crosshair;
+    cursor: pointer;
     border: 2px solid var(--accent-color);
     border-radius: 4px;
     overflow: hidden;
     transition: transform 0.3s ease, max-width 0.3s ease;
-    /* Плавная анимация для сброса масштаба */
     z-index: 1;
-    /* Базовый z-index */
 }
 
-/* Убираем старый hover-эффект, так как теперь используем колесико мыши */
 .map-container:hover {
     z-index: 10;
-    /* Карта поверх других элементов при наведении */
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    /* Тень для эффекта "всплытия" */
 }
 
-/* Анимация при активном масштабировании */
 .map-container.scaling {
     transition: transform 0.1s ease, max-width 0.1s ease;
 }
@@ -106,11 +96,9 @@ body {
 .map-container img {
     width: 100%;
     display: block;
-    transition: transform 0.3s ease;
-    /* Плавная анимация для изображения */
+    pointer-events: none;
 }
 
-/* маркер, который появляется при клике на карту */
 .marker {
     position: absolute;
     width: 5px;
@@ -119,11 +107,9 @@ body {
     border: 2px solid white;
     border-radius: 40%;
     transform: translate(-50%, -50%);
-    /* центрируем маркер по координатам клика */
     pointer-events: none;
 }
 
-/* целевой маркер (правильный ответ) */
 .marker.target {
     background-color: red;
     border: 2px solid white;
@@ -142,7 +128,6 @@ body {
     z-index: 5;
 }
 
-/* текст с расстоянием */
 .distance-text {
     position: absolute;
     top: 0;
@@ -173,7 +158,7 @@ body {
     font-size: 1.1rem;
     font-weight: bold;
     background-color: var(--accent-color);
-    color: linear-gradient(135deg, #1e2b3c, #0f2a38);
+    color: var(--bg-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -197,18 +182,11 @@ body {
 
 .game-title {
     width: 100%;
-    /* растягиваем на всю ширину */
     text-align: center;
-    /* центрируем текст */
     padding: 15px 0;
-    /* добавляем отступы сверху и снизу */
     font-size: 24px;
-    /* размер шрифта */
-    /* делаем все буквы заглавными для стиля */
     color: var(--accent-color);
-    /* легкий темный фон под заголовком */
     letter-spacing: 1px;
-    /* небольшой межбуквенный интервал для красоты */
 }
 
 .change-page-home {
@@ -221,29 +199,192 @@ body {
 }
 
 #ex-button a {
-    /* 1. убираем подчеркивание */
     text-decoration: none;
-    /* 2. цвет текста (например, белый или черный) */
     background: linear-gradient(135deg, #1e2b3c, #0f2a38);
     color: transparent;
-    /* 3. цвет фона кнопки */
     background-color: var(--accent1-color);
     background-clip: text;
-    /* 4. важно для тега <a>, чтобы отступы работали корректно */
     display: inline-block;
     align-items: end;
-    /* остальные твои стили */
     padding: 10px 30px;
     font-size: 1.1rem;
     font-weight: bold;
     border-radius: 10px;
     transition: opacity 0.2s;
-
 }
 
-/* эффект при наведении, чтобы кнопка "ожила" */
 #ex-button:hover {
     opacity: 0.8;
     color: #272323;
-    /* чтобы цвет текста не менялся на стандартный синий */
+}
+
+/* Стили для модального окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: var(--panel-bg);
+    border-radius: 12px;
+    width: 95%;
+    max-width: 900px;
+    max-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: modalFadeIn 0.3s ease;
+    overflow: hidden;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--grey);
+}
+
+.modal-header h2 {
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Обертка для карты с ограничением высоты */
+.modal-map-wrapper {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    min-height: 0;
+}
+
+.modal-map-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    cursor: crosshair;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.modal-map-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+}
+
+/* Увеличенный маркер для модального окна */
+.large-marker {
+    width: 12px !important;
+    height: 12px !important;
+    background-color: rgb(0, 255, 255) !important;
+    border: 3px solid white !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    z-index: 10;
+}
+
+/* Отображение координат */
+.coordinates-display {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #00ff00;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: monospace;
+    pointer-events: none;
+    z-index: 10;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.confirm-btn {
+    margin: 15px 20px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: center;
+}
+
+.confirm-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.confirm-btn:not(:disabled):hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Адаптивность для модального окна */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    
+    .modal-map-container {
+        max-width: 100%;
+    }
 }
