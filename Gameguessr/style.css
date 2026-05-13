@@ -80,17 +80,13 @@ body {
     border: 2px solid var(--accent-color);
     border-radius: 4px;
     overflow: hidden;
-    transition: transform 0.3s ease, max-width 0.3s ease;
+    transition: box-shadow 0.3s ease;
     z-index: 1;
 }
 
 .map-container:hover {
     z-index: 10;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.map-container.scaling {
-    transition: transform 0.1s ease, max-width 0.1s ease;
 }
 
 .map-container img {
@@ -151,6 +147,23 @@ body {
 
 .hidden {
     display: none;
+}
+
+.open-big-map-btn {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background-color: var(--panel-bg);
+    color: var(--text-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.open-big-map-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
 }
 
 #guess-btn {
@@ -228,7 +241,11 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+    box-sizing: border-box;
     z-index: 1000;
     backdrop-filter: blur(5px);
 }
@@ -242,12 +259,13 @@ body {
     border-radius: 12px;
     width: 95%;
     max-width: 900px;
-    max-height: 95vh;
+    max-height: none;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     animation: modalFadeIn 0.3s ease;
-    overflow: hidden;
+    overflow: visible;
 }
 
 @keyframes modalFadeIn {
@@ -295,13 +313,13 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Обертка для карты с ограничением высоты */
+/* Обертка для карты: прокрутка при увеличении (transform) */
 .modal-map-wrapper {
-    flex: 1;
+    flex: 1 1 auto;
     overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
     min-height: 0;
 }
@@ -313,7 +331,9 @@ body {
     cursor: crosshair;
     background-color: #1a1a1a;
     border-radius: 4px;
-    overflow: hidden;
+    overflow: visible;
+    transform-origin: center center;
+    transition: transform 0.08s ease-out;
 }
 
 .modal-map-container img {
@@ -379,11 +399,12 @@ body {
 @media (max-width: 768px) {
     .modal-content {
         width: 100%;
-        height: 100%;
-        max-height: 100vh;
+        max-width: none;
+        max-height: none;
+        margin-bottom: 0;
         border-radius: 0;
     }
-    
+
     .modal-map-container {
         max-width: 100%;
     }
